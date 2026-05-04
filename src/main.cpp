@@ -1,0 +1,50 @@
+#include <iostream>
+#include "TrainingData.hpp"
+#include "Test.hpp"
+#include "UI.hpp"
+
+bool debug = 0;
+
+int main()
+{
+    Perceptron model(14, 0.1);
+
+    std::vector<TrainingSample> samples = GetTrainingSamples();
+    model.Train(samples, 100);
+    
+    if (debug) {
+        model.PrintWeights();
+        RunTests(model);
+        return 0;
+    }
+    
+
+    std::vector<int> input = StartUI();
+    if (model.Predict(input))
+        std::cout << "GO: можно идти в зал.\n";
+    else
+        std::cout << "REST: сегодня лучше восстановиться.\n";
+
+    //TestModel(model, {0,1,0, 0,1,0, 0, 1, 0, 0, 0,1,0, 0}, "нормальное состояние + не пил");
+    //TestModel(model, {1,0,0, 1,0,0, 0, 1, 1, 0, 0,1,0, 1}, "Мало сна + плохое состояние + ел/пил");
+    //TestModel(model, {0,1,0, 0,1,0, 1, 1, 1, 1, 0,1,0, 1}, "Вчера тяжело + крепатура");
+    return 0;
+}
+// 0  sleep_low              — мало сна
+// 1  sleep_normal           — нормальный сон
+// 2  sleep_high             — много сна
+
+// 3  state_bad              — ватное / плохое состояние
+// 4  state_normal           — нормальное состояние
+// 5  state_good             — хорошее состояние
+
+// 6  heavy_yesterday        — вчера была тяжёлая тренировка
+// 7  ate                    — нормально ел
+// 8  hydrated               — нормально пил воду
+// 9  strong_muscle_soreness — сильная крепатура
+
+// 10 mood_bad               — плохое настроение
+// 11 mood_normal            — нормальное настроение
+// 12 mood_good              — хорошее настроение
+
+// 13 time_for_recovery      — будет время восстановиться

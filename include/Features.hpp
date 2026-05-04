@@ -1,0 +1,27 @@
+#ifndef FEATURES_HPP
+#define FEATURES_HPP
+
+enum Feature {
+    SLEEP_LOW = 0,
+    SLEEP_NORMAL,
+    SLEEP_HIGH,
+
+    STATE_BAD,
+    STATE_NORMAL,
+    STATE_GOOD,
+
+    HEAVY_YESTERDAY,
+    ATE,
+    HYDRATED,
+    STRONG_MUSCLE_SORENESS,
+
+    MOOD_BAD,
+    MOOD_NORMAL,
+    MOOD_GOOD,
+
+    TIME_FOR_RECOVERY,
+
+    FEATURE_COUNT
+};
+
+#endif /* FEATURES_HPP */
