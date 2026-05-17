@@ -20,7 +20,7 @@ int main()
     }
     
 
-    std::vector<int> input = StartUI();
+    std::vector<double> input = StartUI();
     if (model.Predict(input))
         std::cout << "GO: можно идти в зал.\n";
     else

@@ -3,6 +3,6 @@
 
 #include <vector>
 
-std::vector<int> StartUI();
+std::vector<double> StartUI();
 
 #endif /* A093C213_69EE_448F_B4BB_F63ED63000BB */
