@@ -4,7 +4,7 @@
 #include "Perceptron.hpp"
 #include <vector>
 
-std::vector<TrainingSample> samples = {
+std::vector<TrainingSample> all_samples = {
     // всё плохо, сна мало, плохое состояние, не ел, не пил
     {{1,0,0, 1,0,0, 1, 0, 0, 1, 1,0,0, 0}, 0}, // 0
     
@@ -116,6 +116,6 @@ std::vector<TrainingSample> samples = {
 };
 
 std::vector<TrainingSample> GetTrainingSamples() {
-    return samples;
+    return all_samples;
 }
 #endif /* TRAINING_DATA_HPP */

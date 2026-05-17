@@ -4,18 +4,29 @@
 #include "UI.hpp"
 #include "Matrix.hpp"
 
-bool debug = 0;
+bool debug = 1;
 
 int main()
 {
     Perceptron model(14, 0.1);
 
-    std::vector<TrainingSample> samples = GetTrainingSamples();
-    model.Train(samples, 100);
+    std::vector<TrainingSample> dataset = GetTrainingSamples();
+    
+    std::vector<TrainingSample> train_set;
+    std::vector<TrainingSample> test_set;
+
+    StratisfiedSplit(dataset, train_set, test_set, 0.8);
+
+    std::cout << "Dataset split successfully: \n";
+    std::cout << "Total dataset size: " << dataset.size() << std::endl;
+    std::cout << "Training set size: " << train_set.size() << std::endl;
+    std::cout << "Testing set size: " << test_set.size() << std::endl << std::endl;
+
+    model.Train(train_set, 150, 16);
     
     if (debug) {
         model.PrintWeights();
-        RunTests(model);
+        RunTests(model, test_set);
         return 0;
     }
     

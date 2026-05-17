@@ -2,54 +2,40 @@
 #define TEST_HPP
 
 #include <iostream>
-#include <vector>
-#include <string>
+#include <algorithm>
+#include <random>
 #include "Perceptron.hpp"
-#include "TestData.hpp"
 
-inline const char* Label(int value) {
-    return value == 1 ? "GO" : "REST";
-}
+inline void StratisfiedSplit(const std::vector<TrainingSample>& dataset, std::vector<TrainingSample>& train_set, std::vector<TrainingSample>& test_set, double train_ratio = 0.8) {
 
-void TestModel(const Perceptron& model, const TestSample& test) {
-    int prediction = model.Predict(test.input.input);
+    std::vector<TrainingSample> class_0;
+    std::vector<TrainingSample> class_1;
 
-    std::cout << "TEST: " << test.description << '\n';
-    std::cout << "EXPECTED: " << Label(test.expected) << '\n';
-    std::cout << "RESULT: " << Label(prediction) << '\n';
-
-    if (prediction == test.expected) {
-        std::cout << "STATUS: OK\n";
-    } else {
-        std::cout << "STATUS: WRONG\n";
+    for (const auto& sample : dataset) {
+        if (sample.target == 0)
+            class_0.push_back(sample);
+        else
+            class_1.push_back(sample);
     }
 
-    std::cout << "--------------------------------\n";
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(class_0.begin(), class_0.end(), g);
+    std::shuffle(class_1.begin(), class_1.end(), g);
+
+    size_t train_size_0 = static_cast<size_t>(class_0.size() * train_ratio);
+    size_t train_size_1 = static_cast<size_t>(class_1.size() * train_ratio);
+
+    train_set.insert(train_set.end(), class_0.begin(), class_0.begin() + train_size_0);
+    train_set.insert(train_set.end(), class_1.begin(), class_1.begin() + train_size_1);
+
+    std::shuffle(train_set.begin(), train_set.end(), g);
+    std::shuffle(test_set.begin(), test_set.end(), g);
+
 }
 
-void RunTests(const Perceptron& model) {
-    std::vector<TestSample> tests = GetTestSamples();
-
-    int correct = 0;
-
-    for (const TestSample& test : tests) {
-        int prediction = model.Predict(test.input.input);
-
-        std::cout << "TEST: " << test.description << '\n';
-        std::cout << "EXPECTED: " << Label(test.expected) << '\n';
-        std::cout << "RESULT: " << Label(prediction) << '\n';
-
-        if (prediction == test.expected) {
-            std::cout << "STATUS: OK\n";
-            correct++;
-        } else {
-            std::cout << "STATUS: WRONG\n";
-        }
-
-        std::cout << "--------------------------------\n";
-    }
-
-    std::cout << "TOTAL: " << correct << "/" << tests.size() << " correct\n";
+inline void RunTests(const Perceptron& model, const std::vector<TrainingSample>& test_set) {
+    model.Evaluate(test_set);
 }
 
-#endif
+#endif /* TEST_HPP */
