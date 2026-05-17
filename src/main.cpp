@@ -2,6 +2,7 @@
 #include "TrainingData.hpp"
 #include "Test.hpp"
 #include "UI.hpp"
+#include "Matrix.hpp"
 
 bool debug = 0;
 
