@@ -2,9 +2,9 @@
 #define TRAINING_DATA_HPP
 
 #include "Perceptron.hpp"
-#include <vector>
+#include "MutableArraySequence.hpp"
 
-std::vector<TrainingSample> all_samples = {
+MutableArraySequence<TrainingSample> all_samples = {
     // всё плохо, сна мало, плохое состояние, не ел, не пил
     {{1,0,0, 1,0,0, 1, 0, 0, 1, 1,0,0, 0}, 0}, // 0
     
@@ -115,7 +115,7 @@ std::vector<TrainingSample> all_samples = {
 
 };
 
-std::vector<TrainingSample> GetTrainingSamples() {
+MutableArraySequence<TrainingSample> GetTrainingSamples() {
     return all_samples;
 }
 #endif /* TRAINING_DATA_HPP */

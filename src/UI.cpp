@@ -4,8 +4,8 @@
 #include <cstdlib>
 #include <cstddef>
 
-std::vector<double> StartUI() {
-    std::vector<double> input(FEATURE_COUNT, 0);
+MutableArraySequence<double> StartUI() {
+    MutableArraySequence<double> input(FEATURE_COUNT, 0);
 
     int sleep_time, state, mood, answer;
 

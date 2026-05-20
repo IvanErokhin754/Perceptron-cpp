@@ -1,7 +1,7 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include <vector>
+#include "MutableArraySequence.hpp"
 #include <stdexcept>
 #include <cmath>
 
@@ -10,7 +10,7 @@ template <typename T>
 class Matrix {
 private:
     size_t size_n, size_m;
-    std::vector<T> data;
+    MutableArraySequence<T> data;
 
     size_t Index(size_t i, size_t j) const {
         return i * size_m + j;
@@ -138,11 +138,11 @@ public:
         return result;
     }
 
-    std::vector<T> MultiplyByVector(const std::vector<T>& vector) const {
+    MutableArraySequence<T> MultiplyByVector(const MutableArraySequence<T>& vector) const {
         if (size_m != vector.size()) 
             throw std::invalid_argument("Matrix columns must match vector size");
         
-        std::vector<T> result(size_n, T());
+        MutableArraySequence<T> result(size_n, T());
 
         for (size_t i = 0; i < size_n; i++) {
             T sum = T();
@@ -157,11 +157,11 @@ public:
         return result;
     }
 
-    std::vector<T> TransposeMultiplyByVector(const std::vector<T>& vector) const {
+    MutableArraySequence<T> TransposeMultiplyByVector(const MutableArraySequence<T>& vector) const {
         if (size_n != vector.size())
             throw std::invalid_argument("Matrix rows must match vector size");
         
-        std::vector<T> result(size_m, T());
+        MutableArraySequence<T> result(size_m, T());
 
         for (size_t j = 0; j < size_m; j++) {
             T sum = T();

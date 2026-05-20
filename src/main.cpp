@@ -10,10 +10,10 @@ int main()
 {
     Perceptron model(14, 0.1);
 
-    std::vector<TrainingSample> dataset = GetTrainingSamples();
+    MutableArraySequence<TrainingSample> dataset = GetTrainingSamples();
     
-    std::vector<TrainingSample> train_set;
-    std::vector<TrainingSample> test_set;
+    MutableArraySequence<TrainingSample> train_set;
+    MutableArraySequence<TrainingSample> test_set;
 
     StratisfiedSplit(dataset, train_set, test_set, 0.8);
 
@@ -31,7 +31,7 @@ int main()
     }
     
 
-    std::vector<double> input = StartUI();
+    MutableArraySequence<double> input = StartUI();
     if (model.Predict(input))
         std::cout << "GO: можно идти в зал.\n";
     else
